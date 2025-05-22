@@ -5,8 +5,10 @@ const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Property = require('./models/Property');
 const authenticateToken = require('./middleware/auth');
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 // User Registration
