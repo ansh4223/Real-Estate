@@ -1,0 +1,67 @@
+.add-property-container {
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.steps-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0rem;
+  margin-left: 40px;
+  margin-right: 40px;
+  background-color: white;
+  border-radius: 999px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  background-color: white; 
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  font-weight: 500;
+  color: #999;
+  position: relative; 
+}
+
+.circle {
+  background-color: #e6f2f2;
+  color: #AAAAAA;
+  width: 25px; 
+  height: 25px; 
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem; 
+}
+
+.step.active {
+  background-color: #4e8cff; 
+  color: #AAAAAA; 
+}
+
+.circle.active-circle {
+  background-color: white;
+  color: #AAAAAA; 
+}
+
+.step-label {
+  color: #AAAAAA; 
+}
+
+.step.active .step-label {
+  color: white; 
+}
+
+
+.form-container {
+  background: white;
+  border-radius: 12px;
+  padding: 0rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.title{
+  color:#7D7D7D;
+}

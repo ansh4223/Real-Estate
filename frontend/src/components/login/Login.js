@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./login.css";
 import { saveToken } from "../../utils/tokenStorage";
+import { useNavigate } from "react-router-dom";
 
 function Login({switchToSignup} ) {
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ function Login({switchToSignup} ) {
 
       saveToken(data.token);
       alert("Login successful!");
+      navigate("/dashboard", { state: { email: data.email, name: data.name } });
     } catch (err) {
       setError(err.message);
     }
