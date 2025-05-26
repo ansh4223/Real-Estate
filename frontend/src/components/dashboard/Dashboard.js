@@ -18,6 +18,13 @@ function Dashboard() {
   const navigate = useNavigate();
   const { email, name } = location.state || {};
 
+    useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   useEffect(() => {
     const fetchProperties = async () => {
       try {
