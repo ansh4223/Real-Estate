@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const app = require('./app');
+const app = require('./App');
 const port = 8081;
 
 mongoose.connect('mongodb://localhost:27017/real-estate', { useNewUrlParser: true, useUnifiedTopology: true })
