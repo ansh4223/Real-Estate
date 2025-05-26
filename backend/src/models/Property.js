@@ -32,7 +32,7 @@ const propertySchema = new mongoose.Schema({
         postedBy: String,
         saleType: String,
         featuredPackage: String,
-        ppdPackage: String
+        ppdPackage: String,
     },
     locationInfo: {
         email: String,

@@ -8,6 +8,7 @@ const authenticateToken = require('./middleware/auth');
 const cors = require('cors');
 const app = express();
 
+
 app.use(cors());
 app.use(express.json());
 
@@ -26,18 +27,31 @@ app.post('/api/register', async (req, res) => {
 
 // User Login
 app.post('/api/login', async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
-        if (!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(401).json({ message: 'Invalid email or password' });
-        }
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET || 'secretkey', { expiresIn: '1h' });
-        res.json({ message: 'Login successful', token });
-    } catch (error) {
-        res.status(500).json({ message: 'Error logging in', error });
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
+
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET || 'secretkey',
+      { expiresIn: '1h' }
+    );
+
+    res.json({
+      message: 'Login successful',
+      token,
+      email: user.email,
+      name: user.name
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error logging in', error });
+  }
 });
+
 
 // Add Property (Protected)
 app.post('/api/properties', authenticateToken, async (req, res) => {
@@ -59,6 +73,19 @@ app.get('/api/properties', authenticateToken, async (req, res) => {
         res.status(500).json({ message: 'Error fetching properties', error });
     }
 });
+
+app.get('/api/properties/:id', authenticateToken, async (req, res) => {
+    try {
+        const property = await Property.findById(req.params.id);
+        if (!property) {
+            return res.status(404).json({ message: 'Property not found' });
+        }
+        res.json(property);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching property', error });
+    }
+});
+
 
 // Update Property (Protected)
 app.put('/api/properties/:id', authenticateToken, async (req, res) => {
