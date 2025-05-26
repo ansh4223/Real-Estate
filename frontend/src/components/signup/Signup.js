@@ -20,7 +20,7 @@ function Signup({ onSignUpSuccess, switchToLogin }) {
     }
 
     try {
-      const response = await fetch('http://localhost:8081/api/register', {
+      const response = await fetch('https://backendreal-lywv.onrender.com/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: fullName, email: mailID, password }),

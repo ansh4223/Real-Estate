@@ -11,7 +11,7 @@ const EditPropertyModal = ({ propertyId, onClose }) => {
     const fetchPropertyDetails = async () => {
       try {
         const token = localStorage.getItem("authToken");
-        const response = await fetch(`http://localhost:8081/api/properties/${propertyId}`, {
+        const response = await fetch(`https://backendreal-lywv.onrender.com/api/properties/${propertyId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -44,7 +44,7 @@ const EditPropertyModal = ({ propertyId, onClose }) => {
     setSaving(true);
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch(`http://localhost:8081/api/properties/${propertyId}`, {
+      const response = await fetch(`https://backendreal-lywv.onrender.com/api/properties/${propertyId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

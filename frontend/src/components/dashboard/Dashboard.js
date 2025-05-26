@@ -29,7 +29,7 @@ function Dashboard() {
     const fetchProperties = async () => {
       try {
         const token = localStorage.getItem("authToken");
-        const response = await fetch("http://localhost:8081/api/properties", {
+        const response = await fetch("https://backendreal-lywv.onrender.com/api/properties", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

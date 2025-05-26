@@ -11,7 +11,7 @@ const PropertyDetailsModal = ({ propertyId, onClose }) => {
       try {
         const token = localStorage.getItem("authToken");
         const response = await fetch(
-          `http://localhost:8081/api/properties/${propertyId}`,
+          `https://backendreal-lywv.onrender.com/api/properties/${propertyId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
