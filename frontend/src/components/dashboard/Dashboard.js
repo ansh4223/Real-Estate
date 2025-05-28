@@ -18,7 +18,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const { email, name } = location.state || {};
 
-    useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       navigate("/");
@@ -29,11 +29,14 @@ function Dashboard() {
     const fetchProperties = async () => {
       try {
         const token = localStorage.getItem("authToken");
-        const response = await fetch("https://backendreal-lywv.onrender.com/api/properties", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "https://backendreal-lywv.onrender.com/api/properties",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch properties");
