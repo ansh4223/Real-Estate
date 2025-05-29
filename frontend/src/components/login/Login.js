@@ -3,7 +3,7 @@ import "./login.css";
 import { saveToken } from "../../utils/tokenStorage";
 import { useNavigate } from "react-router-dom";
 
-function Login({switchToSignup} ) {
+function Login({ switchToSignup }) {
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,12 +14,21 @@ function Login({switchToSignup} ) {
     e.preventDefault();
     setError("");
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(userID)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
     try {
-      const response = await fetch("https://backendreal-lywv.onrender.com/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: userID, password }),
-      });
+      const response = await fetch(
+        "https://backendreal-lywv.onrender.com/api/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: userID, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -52,7 +61,7 @@ function Login({switchToSignup} ) {
           />
           <div className="password-wrapper">
             <input
-               type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               className="input-field"
               value={password}
@@ -69,11 +78,15 @@ function Login({switchToSignup} ) {
           </button>
         </form>
         {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
-        <button className="signup-link" onClick={switchToSignup}>Sign Up</button>
+        <button className="signup-link" onClick={switchToSignup}>
+          Sign Up
+        </button>
       </div>
       <p className="bottom-signup">
         Don’t have an account?{" "}
-        <span className="bottom-signup-link" onClick={switchToSignup}>Sign up</span>
+        <span className="bottom-signup-link" onClick={switchToSignup}>
+          Sign up
+        </span>
       </p>
     </div>
   );

@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
-import './Signup.css';
+import React, { useState } from "react";
+import "./Signup.css";
 
 function Signup({ onSignUpSuccess, switchToLogin }) {
-  const [fullName, setFullName] = useState('');
-  const [mailID, setMailID] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [mailID, setMailID] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(mailID)) {
+      setError("Please enter a valid email address");
+      return;
+    }
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
 
     try {
-      const response = await fetch('https://backendreal-lywv.onrender.com/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: fullName, email: mailID, password }),
-      });
+      const response = await fetch(
+        "https://backendreal-lywv.onrender.com/api/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: fullName, email: mailID, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Registration failed');
+        throw new Error(data.message || "Registration failed");
       }
 
       setSuccess(data.message);
@@ -79,11 +89,15 @@ function Signup({ onSignUpSuccess, switchToLogin }) {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <button type="submit" className="signup-button">Sign Up</button>
+          <button type="submit" className="signup-button">
+            Sign Up
+          </button>
         </form>
         {error && <p className="error-msg">{error}</p>}
         {success && <p className="success-msg">{success}</p>}
-        <button className="signin-link" onClick={switchToLogin}>Sign In</button>
+        <button className="signin-link" onClick={switchToLogin}>
+          Sign In
+        </button>
       </div>
     </div>
   );
